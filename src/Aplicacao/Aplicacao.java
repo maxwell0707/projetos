@@ -16,12 +16,12 @@ public class Aplicacao {
 
 		System.out.print("Digite o numero do quarto: ");
 		int num = sc.nextInt();
-		System.out.print("Digite a Data do chek-in(dd/MM/yyyy):  ");
+		System.out.print("Digite a Data do Check-in(dd/MM/yyyy):  ");
 		Date checkin = sdf.parse(sc.next());
 		System.out.println("Digite a Data de Check-out: ");
 		Date checkout = sdf.parse(sc.next());
 
-		if (!checkout.after(checkin)) {
+		if (checkout.before(checkin)) { //after(depois) before(antes)
 
 			System.out.println("Erro, a data do check-in nao pode ser posterior ao check-out");
 		} else {
@@ -34,20 +34,14 @@ public class Aplicacao {
 			System.out.println("Digite a Data de Check-out: ");
 			checkout = sdf.parse(sc.next());
 			// *****************************************************************************************************************************
-			Date now = new Date();
-			if (checkin.before(now) || checkout.before(now)) {
-				// ATUALIZAÇÃO DA RESERVA
-				System.out.println("a atualização de Datas deve conter datas futuras.");
-
-			} else if (!checkout.after(checkin)) {
-
-				System.out.println("Erro de reserva , a data do check-in nao pode ser posterior ao check-out");
-			} else {
-				reserva.atualizarData(checkin, checkout);
-				System.out.println(reserva);
-
-			}
-
+		String error=  reserva.atualizarData(checkin, checkout);
+		if(error!= null) {
+			System.out.println("Error na reseva: "+ error);
+			
+		}else {
+			System.out.println("reserva:\n "+ reserva);
+		}
+			
 		}
 
 	}
